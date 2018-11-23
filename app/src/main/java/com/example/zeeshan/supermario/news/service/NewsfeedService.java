@@ -11,7 +11,7 @@ import retrofit2.http.Url;
 
 public interface NewsfeedService {
     @GET("posts")
-    Call<List<ResponseModel>> getNewsfeed(@Query("tags") String tag);
+    Call<List<ResponseModel>> getNewsfeed(@Query("tags") String tag, @Query("page") String pageNo);
 
     @GET
     Call<ResponseModel> getImageUrl(@Url String url);

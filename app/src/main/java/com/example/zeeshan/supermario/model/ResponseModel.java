@@ -2,9 +2,10 @@ package com.example.zeeshan.supermario.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResponseModel {
+public class ResponseModel implements Serializable {
 
     private Integer id;
     private String date;
@@ -247,7 +248,7 @@ public class ResponseModel {
 }
 
 
-class About {
+class About implements Serializable{
 
     private String href;
 
@@ -261,7 +262,7 @@ class About {
 
 }
 
-class Author {
+class Author implements Serializable{
 
     private Boolean embeddable;
     private String href;
@@ -284,7 +285,7 @@ class Author {
 
 }
 
-class Collection {
+class Collection implements Serializable{
 
     private String href;
 
@@ -300,7 +301,7 @@ class Collection {
 
 
 
-class Cury {
+class Cury implements Serializable{
 
     private String name;
     private String href;
@@ -332,7 +333,7 @@ class Cury {
 
 }
 
-class Excerpt {
+class Excerpt implements Serializable{
 
     private String rendered;
     private Boolean _protected;
@@ -355,7 +356,7 @@ class Excerpt {
 
 }
 
-class Guid {
+class Guid implements Serializable{
 
     private String rendered;
 
@@ -371,7 +372,7 @@ class Guid {
 
 
 
-class Meta {
+class Meta implements Serializable{
 
     private String ampStatus;
 
@@ -385,7 +386,7 @@ class Meta {
 
 }
 
-class PredecessorVersion {
+class PredecessorVersion implements Serializable{
 
     private Integer id;
     private String href;
@@ -408,7 +409,7 @@ class PredecessorVersion {
 
 }
 
-class Reply {
+class Reply implements Serializable{
 
     private Boolean embeddable;
     private String href;
@@ -431,7 +432,7 @@ class Reply {
 
 }
 
-class Self {
+class Self implements Serializable{
 
     private String href;
 
@@ -446,7 +447,7 @@ class Self {
 }
 
 
-class VersionHistory {
+class VersionHistory implements Serializable{
 
     private Integer count;
     private String href;
@@ -469,7 +470,7 @@ class VersionHistory {
 
 }
 
-class WpAttachment {
+class WpAttachment implements Serializable{
 
     private String href;
 
@@ -483,7 +484,7 @@ class WpAttachment {
 
 }
 
-class WpTerm {
+class WpTerm implements Serializable{
 
     private String taxonomy;
     private Boolean embeddable;

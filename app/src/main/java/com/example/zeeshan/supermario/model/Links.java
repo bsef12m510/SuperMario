@@ -2,9 +2,10 @@ package com.example.zeeshan.supermario.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Links {
+public class Links implements Serializable {
 
     private List<Self> self = null;
     private List<Collection> collection = null;

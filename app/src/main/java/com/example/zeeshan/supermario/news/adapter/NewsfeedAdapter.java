@@ -8,6 +8,7 @@ import android.media.Image;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.zeeshan.supermario.R;
 import com.example.zeeshan.supermario.api.ApiClient;
 import com.example.zeeshan.supermario.model.ResponseModel;
+import com.example.zeeshan.supermario.news.fragment.NewsfeedFragment;
 import com.example.zeeshan.supermario.news.service.NewsfeedService;
 import com.squareup.picasso.Picasso;
 
@@ -43,14 +45,15 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final Context mContext;
     private List<ResponseModel> transactionsList;
     private LayoutInflater mLayoutInflater;
+    private NewsfeedFragment parentFrag;
 
 
-
-    public NewsfeedAdapter(Context _mContext, List<ResponseModel> _transactionsList) {
+    public NewsfeedAdapter(Context _mContext, List<ResponseModel> _transactionsList, NewsfeedFragment parentFrag) {
         this.mContext = _mContext;
         this.transactionsList = _transactionsList;
         urlsMap =  new HashMap<>();
         mLayoutInflater = LayoutInflater.from(mContext);
+        this.parentFrag = parentFrag;
     }
 
 
@@ -68,6 +71,14 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         viewHolder.title.setText(model.getTitle().getRendered());
         viewHolder.date.setText(model.getDate());
+
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentFrag.selectedFeed = model;
+                parentFrag.onFeedClicked();
+            }
+        });
 
         String url = model.getLinks().getWpFeaturedmedia().get(0).getHref();
         url = url.substring(url.lastIndexOf('/') + 1).trim();

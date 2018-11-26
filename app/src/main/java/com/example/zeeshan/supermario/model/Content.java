@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class Content {
+import java.io.Serializable;
+
+public class Content implements Serializable {
 
         private String rendered;
         private Boolean _protected;

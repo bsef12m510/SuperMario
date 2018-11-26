@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class MediaDetails {
+import java.io.Serializable;
+
+public class MediaDetails implements Serializable {
 
     private Integer width;
     private Integer height;

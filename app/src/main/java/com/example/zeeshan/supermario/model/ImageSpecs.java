@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class ImageSpecs {
+import java.io.Serializable;
+
+public class ImageSpecs implements Serializable {
 
     private String file;
     private Integer width;

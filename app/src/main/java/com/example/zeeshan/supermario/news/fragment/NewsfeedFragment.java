@@ -1,6 +1,7 @@
 package com.example.zeeshan.supermario.news.fragment;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.icu.text.Replaceable;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
     private NewsfeedAdapter adapter;
     ProgressDialog pd;
     private List<ResponseModel> responseList;
-
+    public  ResponseModel selectedFeed;
     private static final int ITEMS_ON_PAGE = 10;
     private static int TOTAL_PAGES = 1;
     private static final long DELAY = 1000L;
@@ -58,6 +59,7 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
     public void setPageNo(int pageNo) {
         this.pageNo = pageNo;
     }
+    private NewsfeedFragment.OnFeedFragmentInteractionListener mListener;
 
     public int pageNo = 1;
 
@@ -67,6 +69,12 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
 
     public NewsfeedFragment() {
         // Required empty public constructor
+    }
+
+    public void onFeedClicked() {
+        if (mListener != null) {
+            mListener.onFeedFragmentInteraction(selectedFeed);
+        }
     }
 
     @Override
@@ -145,7 +153,8 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
                     }*/
                     pd.dismiss();
 
-                    adapter = new NewsfeedAdapter(getActivity(), responseList);
+                    addItems();
+                    adapter = new NewsfeedAdapter(getActivity(), items1, NewsfeedFragment.this);
 
                     /*mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setHasFixedSize(true);
@@ -169,7 +178,7 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
                     list.setPager(NewsfeedFragment.this);
                     firstCall = false;
                     setPageNo(getPageNo() + 1);
-                    addItems();
+
                 }
             }
 
@@ -183,6 +192,7 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
 //                else {
                     if (list != null && list.getAdapter() != null && items1 != null) {
                         items1.clear();
+                        responseList = null;
                         list.getAdapter().notifyDataSetChanged();
                     }
 //                }
@@ -258,12 +268,13 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
 
                     responseList = response.body();
                     total_transactions = responseList.size();
-                    adapter = new NewsfeedAdapter(getActivity(), items1);
+                    addItems();
+                    adapter = new NewsfeedAdapter(getActivity(), items1, NewsfeedFragment.this);
                     list.getAdapter().notifyDataSetChanged();
                     setPageNo(getPageNo() + 1);
                     loading = false;
                     list.setRefreshing(false);
-                    addItems();
+
 
                 }
 
@@ -271,11 +282,33 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
                 public void onFailure(Call<List<ResponseModel>> call, Throwable t) {
                     loading = false;
                     list.setRefreshing(false);
-
+                    responseList = null;
 
                 }
             });
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (NewsfeedFragment.OnFeedFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFeedFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFeedFragmentInteraction( ResponseModel selectedFeed);
     }
 
 

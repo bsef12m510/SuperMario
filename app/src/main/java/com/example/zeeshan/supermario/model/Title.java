@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class Title {
+import java.io.Serializable;
+
+public class Title implements Serializable {
 
     private String rendered;
 

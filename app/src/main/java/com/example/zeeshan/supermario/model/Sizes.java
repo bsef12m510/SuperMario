@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class Sizes {
+import java.io.Serializable;
+
+public class Sizes implements Serializable {
     private ImageSpecs thumbnail;
     private ImageSpecs medium;
     private ImageSpecs full;

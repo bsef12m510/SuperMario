@@ -1,5 +1,8 @@
 package com.example.zeeshan.supermario;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,11 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zeeshan.supermario.model.ResponseModel;
+import com.example.zeeshan.supermario.news.fragment.FeedDetailActivity;
 import com.example.zeeshan.supermario.news.fragment.NewsfeedFragment;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NewsfeedFragment.OnFeedFragmentInteractionListener{
 
     private TextView userNameTextView, emailTextView;
     private MaterialViewPager mViewPager;
@@ -153,5 +158,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+
+    @Override
+    public void onFeedFragmentInteraction( ResponseModel selectedFeed){
+        Intent intent = new Intent(MainActivity.this, FeedDetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("selectedFeed",selectedFeed);
+        startActivity(intent);
     }
 }

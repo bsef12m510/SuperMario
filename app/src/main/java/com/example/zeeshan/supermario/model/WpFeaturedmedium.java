@@ -1,6 +1,8 @@
 package com.example.zeeshan.supermario.model;
 
-public class WpFeaturedmedium {
+import java.io.Serializable;
+
+public class WpFeaturedmedium implements Serializable {
 
     private Boolean embeddable;
     private String href;

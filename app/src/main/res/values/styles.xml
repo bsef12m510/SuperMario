@@ -37,7 +37,7 @@
 
         <!-- Toolbar Theme / Apply white arrow -->
         <item name="colorControlNormal">@android:color/white</item>
-        <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
+        <item name="actionBarTheme">@style/DrawerArrowStyle</item>
 
         <!-- Material Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>

@@ -77,6 +77,12 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
         }
     }
 
+    public void onFeedFetched(ResponseModel firstFeed) {
+        if (mListener != null) {
+            mListener.onFeedFetched(firstFeed);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -178,6 +184,8 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
                     list.setPager(NewsfeedFragment.this);
                     firstCall = false;
                     setPageNo(getPageNo() + 1);
+
+                    onFeedFetched(items1.get(0));
 
                 }
             }
@@ -309,7 +317,9 @@ public class NewsfeedFragment extends Fragment implements EndlessRecyclerView.Pa
     public interface OnFeedFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFeedFragmentInteraction( ResponseModel selectedFeed);
+        void onFeedFetched( ResponseModel firstFeed);
     }
+
 
 
 }

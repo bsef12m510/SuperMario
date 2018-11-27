@@ -26,7 +26,7 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 public class MainActivity extends AppCompatActivity implements NewsfeedFragment.OnFeedFragmentInteractionListener{
 
-    private TextView userNameTextView, emailTextView;
+    private TextView userNameTextView, emailTextView, headerText;
     private MaterialViewPager mViewPager;
 
     @Override
@@ -38,16 +38,16 @@ public class MainActivity extends AppCompatActivity implements NewsfeedFragment.
 
         Toolbar toolbar = mViewPager.getToolbar();
 
-        /*if (toolbar != null) {
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
 
             ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setDisplayUseLogoEnabled(false);
-            actionBar.setHomeButtonEnabled(true);
-        }*/
+            actionBar.setHomeButtonEnabled(false);
+        }
 
       /*  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements NewsfeedFragment.
 //        mViewPager.getPagerTitleStrip().setIndicatorColor(R.color.colorPrimary);
 //        mViewPager.getPagerTitleStrip().setTextColor(Color.parseColor("#000000"));
 
-        final View logo = findViewById(R.id.logo_white);
-        if (logo != null) {
+        headerText = findViewById(R.id.logo_white);
+       /* if (logo != null) {
             logo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NewsfeedFragment.
                     Toast.makeText(getApplicationContext(), "Yes, the title is clickable", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
+        }*/
     }
 
 
@@ -167,5 +167,10 @@ public class MainActivity extends AppCompatActivity implements NewsfeedFragment.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("selectedFeed",selectedFeed);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFeedFetched(ResponseModel firstFeed) {
+        headerText.setText(firstFeed.getTitle().getRendered());
     }
 }
